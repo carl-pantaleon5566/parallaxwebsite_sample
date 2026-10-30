@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fly Better, Concept Page v2</title>
+<style>
+:root{
+  --red:#d71921; --red-dk:#a30f16; --gold:#c9a45c; --char:#1f2227; --ink:#0d1017; --paper:#ffffff; --sand:#f5f1ea; --mist:#c9cfda;
+  --sbw:330px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:var(--sans);background:var(--ink);color:#fff;overflow-x:hidden;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+.ribbon{position:fixed;top:0;left:0;right:0;z-index:90;background:#000;color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:6px 10px}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red),var(--gold));z-index:100}
+
+/* page shell shifts when sidebar open */
+#page{transition:padding-right .45s cubic-bezier(.2,.8,.2,1)}
+body.sb-open #page{padding-right:var(--sbw)}
+
+/* nav */
+nav{position:fixed;top:28px;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;transition:background .3s,padding .3s,right .45s cubic-bezier(.2,.8,.2,1)}
+body.sb-open nav{right:var(--sbw)}
+nav.solid{background:rgba(31,34,39,.92);backdrop-filter:blur(12px);padding:10px 4vw;border-bottom:2px solid var(--red)}
+.brand{font-family:var(--serif);font-size:21px;letter-spacing:.3em;text-transform:uppercase;line-height:1}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.32em;color:var(--gold);margin-top:5px}
+nav ul{display:flex;gap:26px;list-style:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+nav ul a{opacity:.8;padding-bottom:4px;border-bottom:1px solid transparent;transition:.2s}
+nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
+.btn{display:inline-block;background:var(--red);color:#fff;border:0;padding:12px 24px;border-radius:2px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{background:#ef2b33;transform:translateY(-2px)}
+.ghost{display:inline-block;border:1px solid rgba(255,255,255,.65);padding:11px 24px;border-radius:2px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:background .2s}
+.ghost:hover{background:rgba(255,255,255,.14)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+
+/* ===== HERO ===== */
+.hero{position:relative;height:135vh;overflow:hidden;background:linear-gradient(#0a0e22 0%,#26214f 26%,#8e2f5b 50%,#e56a4e 72%,#f8c47e 100%)}
+.layer{position:absolute;left:0;width:100%;will-change:transform}
+.stars{inset:0;height:58%;opacity:.85;background-image:
+ radial-gradient(1.5px 1.5px at 12% 20%,#fff,transparent),radial-gradient(1px 1px at 30% 40%,#fff,transparent),
+ radial-gradient(1.5px 1.5px at 55% 15%,#fff,transparent),radial-gradient(1px 1px at 72% 35%,#fff,transparent),
+ radial-gradient(1.5px 1.5px at 88% 22%,#fff,transparent),radial-gradient(1px 1px at 45% 55%,#fff,transparent),
+ radial-gradient(1px 1px at 8% 50%,#fff,transparent),radial-gradient(1.5px 1.5px at 94% 52%,#fff,transparent)}
+.sun{top:56%;left:50%;width:38vmin;height:38vmin;margin-left:-19vmin;border-radius:50%;background:radial-gradient(circle,#fff6d2 0%,#ffd88a 38%,rgba(255,160,90,0) 70%)}
+.cloud svg,.sky svg{display:block;width:100%;height:auto}
+.skyline{bottom:0}
+.skyline svg{display:block;width:100%;height:100%}
+.plane-wrap{top:30%;left:0;width:100%;height:180px;pointer-events:none}
+.plane-pos{position:absolute;left:12%;top:0;width:clamp(220px,32vw,460px)}
+.plane-in{animation:fly 2.4s cubic-bezier(.15,.7,.2,1) both}
+.bob{animation:bob 6s ease-in-out infinite}
+@keyframes fly{from{transform:translateX(-70vw);opacity:0}to{transform:none;opacity:1}}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-.6deg)}}
+.plane-pos svg{width:100%;height:auto;display:block;transform:rotate(-4deg);filter:drop-shadow(0 22px 28px rgba(0,0,0,.4))}
+.trail{position:absolute;right:92%;top:52%;width:70%;height:7px;border-radius:7px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75));filter:blur(3px)}
+.trail.t2{top:60%;height:4px;width:55%;opacity:.7}
+.hero-copy{position:absolute;z-index:5;left:0;right:0;top:46vh;text-align:center;padding:0 6vw}
+.eyebrow{font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,7vw,96px);line-height:1.02;text-shadow:0 6px 40px rgba(0,0,0,.4)}
+.hero h1 em{color:var(--gold)}
+.hero .sub{max-width:560px;margin:20px auto 28px;font-size:clamp(15px,1.5vw,18px);opacity:.93}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.scrollcue{position:absolute;z-index:6;bottom:26px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.85;text-align:center}
+.scrollcue i{display:block;width:1px;height:44px;margin:10px auto 0;background:linear-gradient(var(--gold),transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ===== common ===== */
+.wrap{max-width:1120px;margin:0 auto;padding:110px 5vw}
+.tag{font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--red);margin-bottom:14px;font-weight:600}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.6vw,54px);line-height:1.1;margin-bottom:16px}
+.lead{max-width:620px;font-size:18px;color:#5b6170}
+.rv{opacity:0;transform:translateY(32px);transition:opacity .9s,transform .9s}
+.rv.in{opacity:1;transform:none}
+
+/* ===== JOURNEY (sticky flight path) ===== */
+.journey{height:320vh;background:#0b1024;position:relative}
+.stick{position:sticky;top:0;height:100vh;overflow:hidden;background:linear-gradient(#0a1030,#1b2a5e 60%,#3a4f8f)}
+.stick .night{position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,transparent,#02040c);opacity:0}
+.stick .stars{height:100%;opacity:.6}
+.jhead{position:absolute;top:110px;left:5vw;z-index:3;max-width:480px}
+.jhead .tag{color:var(--gold)} .jhead h2{font-size:clamp(28px,4vw,46px)}
+#route{position:absolute;inset:0;width:100%;height:100%}
+.hud{position:absolute;left:5vw;right:5vw;bottom:34px;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.hud div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:4px;padding:12px 16px;backdrop-filter:blur(6px)}
+.hud small{display:block;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+.hud b{font-family:var(--serif);font-weight:400;font-size:24px}
+
+/* ===== DESTINATIONS ===== */
+#destinations{background:var(--paper);color:var(--char)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+.card{position:relative;height:430px;overflow:hidden;border-radius:4px;cursor:pointer;isolation:isolate;color:#fff}
+.card .bg{position:absolute;inset:-12% 0;z-index:-1;will-change:transform;transition:filter .4s}
+.card:hover .bg{filter:brightness(1.12) saturate(1.1)}
+.card .info{position:absolute;left:0;right:0;bottom:0;padding:24px;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+.card h3{font-family:var(--serif);font-weight:400;font-size:30px}
+.card span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.card p{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s,opacity .5s,margin .5s;font-size:14px}
+.card:hover p,.card:focus p{max-height:90px;opacity:1;margin-top:8px}
+.card .price{position:absolute;top:16px;right:16px;background:var(--red);padding:6px 12px;border-radius:30px;font-size:12px}
+
+/* ===== CABIN ===== */
+#cabin{background:var(--char)}
+#cabin .lead{color:var(--mist)} #cabin .tag{color:var(--gold)}
+.cabin-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.sticky{position:sticky;top:120px}
+.suite{margin-top:34px;aspect-ratio:4/4.4;border-radius:6px;overflow:hidden;background:linear-gradient(160deg,#2a1c2e,#7a1520 60%,#c06a3c);box-shadow:0 40px 80px -30px #000}
+.suite svg{width:100%;height:100%;display:block}
+.feat{padding:32px 0;border-bottom:1px solid rgba(255,255,255,.12);opacity:.3;transform:translateX(24px);transition:all .6s}
+.feat.in{opacity:1;transform:none}
+.feat b{display:block;font-family:var(--serif);font-weight:400;font-size:26px;margin-bottom:6px}
+.feat small{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+.feat p{color:var(--mist)}
+
+/* ===== STATS ===== */
+.band{position:relative;overflow:hidden;background:var(--red)}
+.band .bgp{position:absolute;inset:-30% 0;background:
+ repeating-linear-gradient(115deg,rgba(255,255,255,.06) 0 2px,transparent 2px 40px),radial-gradient(circle at 20% 30%,#ff4a52 0,transparent 55%),radial-gradient(circle at 85% 80%,#7f0b11 0,transparent 55%);will-change:transform}
+.band .wrap{padding:90px 5vw}
+.stats{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stats b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,72px)}
+.stats span{font-size:12px;letter-spacing:.25em;text-transform:uppercase;opacity:.9}
+
+/* ===== BOOK ===== */
+#book{background:var(--sand);color:var(--char)}
+form{margin-top:40px;display:grid;grid-template-columns:1.2fr 1.2fr 1fr 1fr auto;gap:12px;background:#fff;border:1px solid #e3dccf;padding:18px;border-radius:6px;box-shadow:0 20px 50px -25px rgba(0,0,0,.35)}
+label{display:block;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:6px;font-weight:600}
+input,select{width:100%;padding:12px;background:#faf8f4;border:1px solid #d9d2c4;color:var(--char);border-radius:3px;font:inherit}
+input:focus,select:focus{outline:2px solid var(--red);outline-offset:1px}
+form button{align-self:end}
+#result{margin-top:22px;min-height:24px}
+.ticket{display:flex;justify-content:space-between;gap:20px;align-items:center;background:#fff;padding:22px 26px;border-radius:6px;border-left:8px solid var(--red);box-shadow:0 16px 40px -22px rgba(0,0,0,.4);animation:pop .5s}
+.ticket h4{font-family:var(--serif);font-weight:400;font-size:28px}
+.ticket small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7a7f8c}
+.err{color:var(--red-dk)}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+
+footer{background:#000;padding:48px 5vw;text-align:center;color:#8a90a1;font-size:12px;line-height:1.9}
+footer strong{color:var(--gold);font-weight:400;letter-spacing:.2em}
+
+/* ===== CREW SIDEBAR ===== */
+#crew{position:fixed;top:28px;right:0;bottom:0;width:var(--sbw);z-index:80;background:#fff;color:var(--char);display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1);box-shadow:-20px 0 50px -20px rgba(0,0,0,.45);border-left:4px solid var(--red)}
+body.sb-open #crew{transform:none}
+.sb-head{padding:20px 20px 14px;background:var(--char);color:#fff}
+.sb-head small{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.sb-head h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:4px 0 8px}
+.route-pill{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.1);border-radius:30px;padding:5px 12px;font-size:12px;letter-spacing:.08em}
+.route-pill i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#4be08a;box-shadow:0 0 8px #4be08a}
+.tabs{display:flex;border-bottom:1px solid #e6e1d6}
+.tabs button{flex:1;padding:13px 6px;background:none;border:0;border-bottom:3px solid transparent;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;color:#7b8090}
+.tabs button.on{color:var(--red);border-color:var(--red);font-weight:600}
+.crew-list{flex:1;overflow-y:auto;padding:12px 14px 14px;background:#faf8f4}
+.member{background:#fff;border:1px solid #e9e3d7;border-radius:6px;margin-bottom:10px;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.member:hover{box-shadow:0 8px 22px -14px rgba(0,0,0,.5)}
+.member.open{border-color:var(--red)}
+.m-top{display:flex;gap:12px;align-items:center;padding:12px;width:100%;background:none;border:0;text-align:left;cursor:pointer;color:inherit}
+.m-top svg{width:54px;height:54px;flex:none;border-radius:50%}
+.m-top b{display:block;font-size:15px}
+.m-top small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.m-more{max-height:0;overflow:hidden;transition:max-height .45s;padding:0 14px;font-size:13px;color:#4d5262}
+.member.open .m-more{max-height:220px;padding-bottom:14px}
+.m-more dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:4px 0 10px;font-size:12px}
+.m-more dt{color:#8a8f9d;text-transform:uppercase;letter-spacing:.12em;font-size:10px;padding-top:2px}
+.m-more q{display:block;font-style:italic;margin-bottom:10px}
+.m-more button{background:var(--red);color:#fff;border:0;border-radius:2px;padding:8px 14px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.sb-foot{padding:10px 16px;font-size:10px;color:#8a8f9d;border-top:1px solid #e6e1d6;text-align:center}
+.sb-toggle{position:fixed;top:50%;right:0;z-index:85;transform:translateY(-50%);background:var(--red);color:#fff;border:0;padding:16px 10px;border-radius:6px 0 0 6px;writing-mode:vertical-rl;letter-spacing:.22em;text-transform:uppercase;font-size:11px;cursor:pointer;transition:right .45s cubic-bezier(.2,.8,.2,1),background .2s}
+.sb-toggle:hover{background:#ef2b33}
+body.sb-open .sb-toggle{right:var(--sbw)}
+#toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,40px);background:var(--char);color:#fff;border-left:4px solid var(--gold);padding:12px 20px;border-radius:4px;z-index:120;opacity:0;pointer-events:none;transition:.4s;max-width:88vw;font-size:14px}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:1100px){
+  body.sb-open #page{padding-right:0} body.sb-open nav{right:0}
+}
+@media(max-width:900px){
+  nav ul{position:fixed;inset:70px 0 auto 0;flex-direction:column;background:rgba(31,34,39,.97);padding:24px 5vw;gap:18px;transform:translateY(-140%);transition:transform .35s;z-index:-1}
+  nav ul.open{transform:none}
+  .burger{display:block}.nav-cta{display:none}
+  .cards{grid-template-columns:1fr}.card{height:350px}
+  .cabin-grid{grid-template-columns:1fr}.sticky{position:relative;top:0}
+  .stats{grid-template-columns:repeat(2,1fr);gap:36px 20px}
+  form{grid-template-columns:1fr 1fr}form button{grid-column:1/-1}
+  .hud{grid-template-columns:repeat(2,1fr)} .jhead{top:100px}
+  .ticket{flex-direction:column;align-items:flex-start}
+  #crew{width:min(92vw,360px)} body.sb-open .sb-toggle{right:min(92vw,360px)}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.layer,.bg,.bgp{transform:none!important}.rv,.feat{opacity:1;transform:none}}
+</style>
+</head>
+<body class="sb-open">
+
+<!-- shared SVG defs + airliner symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef0f5"/><stop offset="1" stop-color="#aeb5c3"/></linearGradient>
+    <linearGradient id="gRed" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ee2a33"/><stop offset="1" stop-color="#a30f16"/></linearGradient>
+    <linearGradient id="gWing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8ebf2"/><stop offset="1" stop-color="#8f98aa"/></linearGradient>
+    <linearGradient id="gEng" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f5f9"/><stop offset="1" stop-color="#9ea6b6"/></linearGradient>
+    <symbol id="jet" viewBox="0 0 600 200">
+      <!-- far side: tailplane, wing, engines -->
+      <path d="M96 96 L22 104 L46 108 L116 104Z" fill="#b2b9c7"/>
+      <path d="M326 114 L424 118 L376 140 L296 130Z" fill="#a0a9ba"/>
+      <ellipse cx="392" cy="146" rx="26" ry="10" fill="#9aa3b4"/>
+      <ellipse cx="336" cy="140" rx="24" ry="9" fill="#a6aebd"/>
+      <!-- tail fin -->
+      <clipPath id="finClip"><path d="M50 86 C58 56 36 24 24 4 L70 4 C100 38 132 68 178 86Z"/></clipPath>
+      <g clip-path="url(#finClip)">
+        <rect x="0" y="0" width="220" height="100" fill="#15171c"/>
+        <path d="M0 -100 L300 -100 L300 165 L0 21Z" fill="url(#gRed)"/>
+        <path d="M0 -100 L300 -100 L300 143 L0 -1Z" fill="#0b8a4a"/>
+      </g>
+      <!-- near tailplane -->
+      <path d="M100 100 L24 120 L50 124 L134 108Z" fill="url(#gWing)"/>
+      <!-- double-deck fuselage -->
+      <path d="M22 102 C50 72 120 60 240 58 C360 56 470 58 530 76 C560 86 578 100 574 112 C570 124 548 132 520 136 C440 144 360 148 300 148 C180 148 84 136 22 114Z" fill="url(#gBody)"/>
+      <path d="M62 126 C200 140 420 140 545 122 L548 130 C520 138 440 144 360 148 C260 150 140 146 62 132Z" fill="#000" opacity=".1"/>
+      <!-- upper deck + main deck windows -->
+      <line x1="150" y1="80" x2="486" y2="80" stroke="#283044" stroke-width="4" stroke-dasharray="3 8" stroke-linecap="round"/>
+      <line x1="130" y1="104" x2="500" y2="104" stroke="#283044" stroke-width="5" stroke-dasharray="4 8" stroke-linecap="round"/>
+      <path d="M100 92 C300 86 440 88 520 94" fill="none" stroke="#c7ccd8" stroke-width="1"/>
+      <g fill="#d4ad62" stroke="#9c7a35" stroke-width="1.2">
+        <rect x="114" y="94" width="10" height="23" rx="3"/>
+        <rect x="214" y="97" width="10" height="23" rx="3"/>
+        <rect x="318" y="98" width="10" height="23" rx="3"/>
+        <rect x="430" y="98" width="10" height="23" rx="3"/>
+        <rect x="498" y="96" width="10" height="23" rx="3"/>
+        <rect x="256" y="70" width="8" height="14" rx="2.5"/>
+        <rect x="452" y="72" width="8" height="14" rx="2.5"/>
+      </g>
+      <path d="M522 80 L552 86 L558 94 L516 92Z" fill="#202a44"/>
+      <!-- livery lines -->
+      <path d="M32 116 C180 128 420 130 556 118" fill="none" stroke="#c9a45c" stroke-width="3.5"/>
+      <path d="M36 121 C180 133 420 135 550 124" fill="none" stroke="url(#gRed)" stroke-width="5"/>
+      <!-- near wing -->
+      <path d="M248 130 L384 132 L304 192 L192 194Z" fill="url(#gWing)"/>
+      <path d="M192 194 L304 192 L308 198 L214 200Z" fill="#c9a45c" opacity=".85"/>
+      <!-- near engines (inner + outer) -->
+      <rect x="322" y="134" width="22" height="12" fill="#b2b9c7"/>
+      <ellipse cx="334" cy="158" rx="38" ry="15" fill="url(#gEng)"/>
+      <ellipse cx="370" cy="158" rx="7" ry="13" fill="#2a3144"/>
+      <rect x="236" y="150" width="20" height="10" fill="#b2b9c7"/>
+      <ellipse cx="246" cy="174" rx="30" ry="12" fill="url(#gEng)"/>
+      <ellipse cx="274" cy="174" rx="6" ry="10" fill="#2a3144"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="ribbon">Unofficial design concept &middot; not affiliated with or endorsed by the airline &middot; fictional crew &amp; fares</div>
+<div id="bar"></div>
+
+<div id="page">
+<nav id="nav">
+  <a href="#top" class="brand">Emirates<small>A DESIGN CONCEPT</small></a>
+  <ul id="menu">
+    <li><a href="#top" class="on">Home</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#cabin">Experience</a></li>
+    <li><a href="#book">Book</a></li>
+  </ul>
+  <a href="#book" class="btn nav-cta">Plan a trip</a>
+  <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+</nav>
+
+<header class="hero" id="top">
+  <div class="layer stars" data-speed="0.05"></div>
+  <div class="layer sun" data-speed="0.18"></div>
+  <div class="layer cloud" data-speed="0.1" style="top:16%;left:-8%;width:50%"><svg viewBox="0 0 400 100"><g fill="#fff" opacity=".26"><ellipse cx="120" cy="60" rx="110" ry="22"/><ellipse cx="200" cy="48" rx="80" ry="26"/><ellipse cx="290" cy="64" rx="100" ry="20"/></g></svg></div>
+  <div class="layer cloud" data-speed="0.2" style="top:50%;left:52%;width:56%"><svg viewBox="0 0 400 100"><g fill="#ffd6bd" opacity=".42"><ellipse cx="130" cy="60" rx="120" ry="22"/><ellipse cx="220" cy="46" rx="80" ry="26"/><ellipse cx="300" cy="64" rx="90" ry="20"/></g></svg></div>
+
+  <div class="layer skyline" data-speed="0.38" style="height:44vh"><svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice"><path fill="#4b2447" opacity=".75" d="M0 300V210l60-22 40 30 70-60 50 40 90-70 60 50 80-30 70 40 90-60 60 50 100-40 80 60 70-50 80 40 100-70V300Z"/></svg></div>
+
+  <div class="layer plane-wrap" data-speed="0.28" id="planeWrap">
+    <div class="plane-pos" id="planePos">
+      <div class="plane-in"><div class="bob">
+        <div class="trail"></div><div class="trail t2"></div>
+        <svg viewBox="0 0 600 200" role="img" aria-label="Wide-body airliner"><use href="#jet"/></svg>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="layer skyline" data-speed="0.58" style="height:36vh"><svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice"><g fill="#1c1030"><path d="M0 300V236h60v-40h40v40h50v-70h30v70h60v-50h40v50h70v-90h24v90h40v-60h50v60h60v-30h40v30h70v-100h26v100h60v-70h40v70h60v-86h14l8-120 8 120h14v86h50v-60h40v60h70v-50h50v50h60v-80h40v80h70v-40h60v40h50V300Z"/></g></svg></div>
+  <div class="layer skyline" data-speed="0.8" style="height:20vh"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path fill="#0d1017" d="M0 200V122c120-30 240-10 360 10s250 30 380-5 300-30 460 15V200Z"/></svg></div>
+
+  <div class="hero-copy" id="copy">
+    <div class="eyebrow">Dubai &middot; The World &middot; Beyond</div>
+    <h1>Fly <em>better</em>.<br>Arrive inspired.</h1>
+    <p class="sub">A parallax concept: from the golden-hour skyline to a cabin you will not want to leave, with your crew one tap away.</p>
+    <div class="btns"><a class="btn" href="#book">Book a flight</a><a class="ghost" href="#journey">Follow the flight</a></div>
+  </div>
+  <div class="scrollcue">Scroll<i></i></div>
+</header>
+
+<!-- scroll-driven flight path -->
+<section class="journey" id="journey">
+  <div class="stick">
+    <div class="layer stars" style="position:absolute;inset:0;transform:none"></div>
+    <div class="night" id="night"></div>
+    <div class="jhead"><div class="tag">Follow the flight</div><h2>Dubai to Malé, one scroll at a time.</h2></div>
+    <svg id="route" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice">
+      <path id="arcBase" d="M130 420 C 330 60, 700 40, 880 200" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/>
+      <path id="arcDone" d="M130 420 C 330 60, 700 40, 880 200" fill="none" stroke="#c9a45c" stroke-width="3.5" stroke-linecap="round"/>
+      <g><circle cx="130" cy="420" r="8" fill="#d71921"/><circle cx="130" cy="420" r="16" fill="none" stroke="#d71921" opacity=".5"/><text x="130" y="456" fill="#fff" font-size="15" text-anchor="middle" letter-spacing="3">DXB</text></g>
+      <g><circle cx="880" cy="200" r="8" fill="#fff"/><circle cx="880" cy="200" r="16" fill="none" stroke="#fff" opacity=".5"/><text x="880" y="236" fill="#fff" font-size="15" text-anchor="middle" letter-spacing="3">MLE</text></g>
+      <g id="flyer"><use href="#jet" x="-55" y="-18" width="110" height="37"/></g>
+    </svg>
+    <div class="hud">
+      <div><small>Distance flown</small><b id="hDist">0 km</b></div>
+      <div><small>Altitude</small><b id="hAlt">0 ft</b></div>
+      <div><small>Ground speed</small><b id="hSpd">0 km/h</b></div>
+      <div><small>Status</small><b id="hStat">Boarding</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="destinations">
+  <div class="wrap">
+    <div class="tag rv">Destinations</div>
+    <h2 class="rv">Six continents,<br>one connection.</h2>
+    <p class="lead rv">Hover or tap a card to preview a route, and it fills in the booking form for you.</p>
+    <div class="cards">
+      <div class="card rv" tabindex="0" data-city="Malé (MLE)"><div class="bg" data-p="0.1" style="background:linear-gradient(160deg,#0f3b57,#2a8fa3 55%,#f4d58d)"></div><div class="price">from $620</div><div class="info"><span>Maldives</span><h3>Malé</h3><p>Overwater villas, glass-clear lagoons and a seaplane transfer that is half the holiday.</p></div></div>
+      <div class="card rv" tabindex="0" data-city="Tokyo (HND)"><div class="bg" data-p="0.16" style="background:linear-gradient(160deg,#2b1b4a,#c24d73 55%,#ffb37a)"></div><div class="price">from $780</div><div class="info"><span>Japan</span><h3>Tokyo</h3><p>Neon alleys, quiet shrines, and the best breakfast you will have all year.</p></div></div>
+      <div class="card rv" tabindex="0" data-city="Mauritius (MRU)"><div class="bg" data-p="0.08" style="background:linear-gradient(160deg,#163021,#4a8a54 55%,#d8e4a1)"></div><div class="price">from $710</div><div class="info"><span>Mauritius</span><h3>Port Louis</h3><p>Volcanic peaks, sugarcane fields and beaches that look unreal in person.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cabin">
+  <div class="wrap">
+    <div class="cabin-grid">
+      <div class="sticky">
+        <div class="tag rv">The experience</div>
+        <h2 class="rv">A cabin that feels like arriving already.</h2>
+        <p class="lead rv">Scroll through the details. Tap the crew tab on the right to meet the people behind them.</p>
+        <div class="suite rv">
+          <svg viewBox="0 0 400 440" preserveAspectRatio="xMidYMid slice">
+            <rect x="40" y="50" width="320" height="340" rx="28" fill="none" stroke="#c9a45c" stroke-opacity=".6" stroke-width="2"/>
+            <rect x="70" y="86" width="260" height="140" rx="16" fill="#c9a45c" opacity=".12"/>
+            <circle cx="200" cy="150" r="38" fill="#ffd98a" opacity=".5"/>
+            <g fill="#fff"><circle cx="110" cy="120" r="1.6"/><circle cx="150" cy="170" r="1.2"/><circle cx="250" cy="116" r="1.6"/><circle cx="290" cy="180" r="1.2"/><circle cx="210" cy="104" r="1.2"/></g>
+            <rect x="80" y="270" width="240" height="90" rx="20" fill="#f5f1ea"/>
+            <rect x="96" y="286" width="208" height="58" rx="12" fill="#d71921"/>
+            <rect x="96" y="286" width="208" height="14" rx="7" fill="#fff" opacity=".18"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="feat"><small>01 &middot; Privacy</small><b>Your own suite</b><p>Sliding doors, a fully flat bed and a window that dims on request.</p></div>
+        <div class="feat"><small>02 &middot; Dining</small><b>Dine when you choose</b><p>A menu that follows your body clock, not the trolley schedule.</p></div>
+        <div class="feat"><small>03 &middot; Atmosphere</small><b>Ceiling of stars</b><p>Soft cabin lighting that eases you from Dubai dusk to local dawn.</p></div>
+        <div class="feat"><small>04 &middot; Connected</small><b>Stay in touch, or don't</b><p>Fast wifi when you need it, silence when you don't.</p></div>
+        <div class="feat"><small>05 &middot; Arrival</small><b>Step off rested</b><p>Showers, fresh clothes and a lounge before your next meeting.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="bgp" data-p="0.25"></div>
+  <div class="wrap"><div class="stats">
+    <div class="rv"><b data-n="140">0</b><span>Destinations</span></div>
+    <div class="rv"><b data-n="6">0</b><span>Continents</span></div>
+    <div class="rv"><b data-n="270">0</b><span>Aircraft</span></div>
+    <div class="rv"><b data-n="24">0</b><span>Hours, always on</span></div>
+  </div></div>
+</section>
+
+<section id="book">
+  <div class="wrap">
+    <div class="tag rv">Where to next</div>
+    <h2 class="rv">Start your journey.</h2>
+    <p class="lead rv">Pick a route. This demo is fully interactive but sells no real tickets.</p>
+    <form id="form" class="rv" novalidate>
+      <div><label for="from">From</label><select id="from"><option>Dubai (DXB)</option><option>Singapore (SIN)</option><option>Manila (MNL)</option><option>London (LHR)</option></select></div>
+      <div><label for="to">To</label><select id="to"><option value="">Choose city</option><option>Malé (MLE)</option><option>Tokyo (HND)</option><option>Mauritius (MRU)</option><option>Sydney (SYD)</option><option>New York (JFK)</option></select></div>
+      <div><label for="date">Depart</label><input type="date" id="date"></div>
+      <div><label for="cls">Cabin</label><select id="cls"><option>Economy</option><option>Premium</option><option>Business</option><option>First</option></select></div>
+      <button class="btn" type="submit">Search</button>
+    </form>
+    <div id="result" aria-live="polite"></div>
+  </div>
+</section>
+
+<footer>
+  <strong>FLY BETTER &middot; CONCEPT</strong><br>
+  Independent design exercise created for a web-design challenge.<br>
+  Not affiliated with, endorsed by, or operated by any airline. No logos or trademarks are reproduced. Crew members and fares are fictional.
+</footer>
+</div>
+
+<!-- CREW SIDEBAR -->
+<button class="sb-toggle" id="sbToggle" aria-expanded="true" aria-controls="crew">Your crew</button>
+<aside id="crew" aria-label="Crew">
+  <div class="sb-head">
+    <small>Meet your crew</small>
+    <h3>Today's flight team</h3>
+    <div class="route-pill"><i></i><span id="routeTxt">DXB &rarr; MLE &middot; Boarding</span></div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="on" data-tab="deck" role="tab">Flight deck</button>
+    <button data-tab="cabin" role="tab">Cabin crew</button>
+  </div>
+  <div class="crew-list" id="crewList"></div>
+  <div class="sb-foot">Fictional crew created for this design concept</div>
+</aside>
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+  var $ = function(s,c){return (c||document).querySelector(s)}, $$ = function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- sidebar ---------- */
+  var toastEl = $('#toast'), tt;
+  function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 3200); }
+
+  function avatar(m){
+    var skin = m.skin, hair = m.hair, bg = m.bg, t = m.type, hat = '', body = '';
+    if(t === 'captain' || t === 'fo'){
+      body = '<path d="M8 80 C10 58 26 54 40 54 C54 54 70 58 72 80Z" fill="#1c2233"/><path d="M33 54 L40 66 L47 54Z" fill="#fff"/><rect x="14" y="64" width="12" height="3" fill="#c9a45c"/><rect x="14" y="69" width="12" height="3" fill="#c9a45c"/><rect x="54" y="64" width="12" height="3" fill="#c9a45c"/><rect x="54" y="69" width="12" height="3" fill="#c9a45c"/>';
+      hat = '<path d="M23 25 C23 13 57 13 57 25Z" fill="#1c2233"/><rect x="21" y="24" width="38" height="5" rx="2" fill="#10131f"/><circle cx="40" cy="21" r="3.2" fill="#c9a45c"/>';
+    } else if(t === 'cabinF'){
+      body = '<path d="M8 80 C10 58 26 54 40 54 C54 54 70 58 72 80Z" fill="#7a1017"/><path d="M33 54 L40 64 L47 54Z" fill="#fff"/><path d="M36 58 L44 58 L40 70Z" fill="#c9a45c"/>';
+      hat = '<path d="M25 27 C25 12 55 12 55 27 L53 30 L27 30Z" fill="#d71921"/><rect x="25" y="25" width="30" height="3" fill="#c9a45c"/><path d="M54 22 C70 28 68 54 60 64 L52 42Z" fill="#fff" opacity=".92"/>';
+    } else {
+      body = '<path d="M8 80 C10 58 26 54 40 54 C54 54 70 58 72 80Z" fill="#7a1017"/><path d="M33 54 L40 62 L47 54Z" fill="#fff"/><path d="M38 60 L42 60 L43 74 L40 77 L37 74Z" fill="#c9a45c"/>';
+    }
+    var hairShape = (t === 'cabinF') ? '' : '<path d="M26 32 C26 18 54 18 54 32 C50 26 30 26 26 32Z" fill="'+hair+'"/>';
+    if(t === 'captain' || t === 'fo') hairShape = '';
+    return '<svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="40" fill="'+bg+'"/>'+body+
+      '<rect x="35" y="44" width="10" height="12" fill="'+skin+'"/>'+
+      '<circle cx="40" cy="36" r="14" fill="'+skin+'"/>'+hairShape+hat+
+      '<circle cx="35" cy="37" r="1.6" fill="#2a2a2a"/><circle cx="45" cy="37" r="1.6" fill="#2a2a2a"/>'+
+      '<path d="M35 43 Q40 47 45 43" fill="none" stroke="#7a3b2e" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  }
+
+  var crew = {
+    deck:[
+      {n:'Capt. Omar Haddad', r:'Captain', skin:'#d9a273', hair:'#222', bg:'#e9ecf3', type:'captain', from:'Amman, Jordan', lang:'Arabic, English, French', hours:'14,200 flight hours', q:'The best view in the world comes with the job.'},
+      {n:'F/O Mei Tanaka', r:'First Officer', skin:'#f1cfae', hair:'#1b1b1b', bg:'#f3e6e8', type:'fo', from:'Osaka, Japan', lang:'Japanese, English', hours:'6,800 flight hours', q:'I still get goosebumps on every sunrise departure.'}
+    ],
+    cabin:[
+      {n:'Sofia Alvarez', r:'Cabin Service Director', skin:'#e3b08a', hair:'#3a2418', bg:'#f6e3d6', type:'cabinF', from:'Madrid, Spain', lang:'Spanish, English, Portuguese', hours:'12 years with the team', q:'Your first smile on board sets the tone for the whole trip.'},
+      {n:'Maria Santos', r:'Senior Cabin Crew', skin:'#c98f63', hair:'#1d1410', bg:'#f7e9dc', type:'cabinF', from:'Cebu, Philippines', lang:'Filipino, Cebuano, English', hours:'8 years with the team', q:'Kumusta! Ask me anything about the island you are flying to.'},
+      {n:'Priya Nair', r:'Cabin Crew', skin:'#b57a52', hair:'#14100e', bg:'#f1e1e4', type:'cabinF', from:'Kochi, India', lang:'Malayalam, Hindi, English', hours:'5 years with the team', q:'Ask me for the chai, not the coffee.'},
+      {n:'Amara Okafor', r:'Cabin Crew', skin:'#7a4a2e', hair:'#0d0a09', bg:'#f2e6d2', type:'cabinF', from:'Lagos, Nigeria', lang:'English, Igbo, French', hours:'4 years with the team', q:'Long flights are just short conversations stacked together.'},
+      {n:'Jonas Berg', r:'Purser', skin:'#f0cdb0', hair:'#b9893f', bg:'#e3eaf3', type:'cabinM', from:'Gothenburg, Sweden', lang:'Swedish, English, German', hours:'10 years with the team', q:'Tell me your favorite film and I will find the best seat for it.'},
+      {n:'Liam O\'Connor', r:'Cabin Crew', skin:'#f3d3bb', hair:'#7a3a1e', bg:'#e6efe3', type:'cabinM', from:'Cork, Ireland', lang:'English, Irish, Spanish', hours:'3 years with the team', q:'I promise the safety briefing is more fun when we do it live.'}
+    ]
+  };
+  var list = $('#crewList'), tab = 'deck';
+  function renderCrew(){
+    list.innerHTML = crew[tab].map(function(m,i){
+      return '<div class="member" data-i="'+i+'"><button class="m-top" aria-expanded="false">'+avatar(m)+'<span><b>'+m.n+'</b><small>'+m.r+'</small></span></button>'+
+        '<div class="m-more"><q>&ldquo;'+m.q+'&rdquo;</q><dl><dt>From</dt><dd>'+m.from+'</dd><dt>Speaks</dt><dd>'+m.lang+'</dd><dt>Experience</dt><dd>'+m.hours+'</dd></dl><button data-hi="'+i+'">Say hello</button></div></div>';
+    }).join('');
+  }
+  renderCrew();
+  list.addEventListener('click', function(e){
+    var hi = e.target.closest('[data-hi]');
+    if(hi){ var m = crew[tab][+hi.dataset.hi]; toast(m.n.split(' ')[m.n.indexOf('.')>-1?1:0] + ' says: welcome aboard! Hope to see you soon.'); return; }
+    var top = e.target.closest('.m-top'); if(!top) return;
+    var card = top.parentElement, was = card.classList.contains('open');
+    $$('.member', list).forEach(function(c){ c.classList.remove('open'); $('.m-top',c).setAttribute('aria-expanded','false'); });
+    if(!was){ card.classList.add('open'); top.setAttribute('aria-expanded','true'); }
+  });
+  $$('.tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('.tabs button').forEach(function(x){ x.classList.remove('on'); }); b.classList.add('on');
+      tab = b.dataset.tab; renderCrew();
+    });
+  });
+  var tgl = $('#sbToggle');
+  function setSb(open){ document.body.classList.toggle('sb-open', open); tgl.setAttribute('aria-expanded', open); tgl.textContent = open ? 'Hide crew' : 'Your crew'; }
+  tgl.addEventListener('click', function(){ setSb(!document.body.classList.contains('sb-open')); });
+  if(innerWidth < 1100) setSb(false); else setSb(true);
+  function setRoute(txt){ $('#routeTxt').innerHTML = txt; }
+
+  /* ---------- scroll engine ---------- */
+  var nav = $('#nav'), bar = $('#bar'), hero = $('.hero'), copy = $('#copy');
+  var layers = $$('.hero .layer'), bgs = $$('.bg,.bgp');
+  var journey = $('#journey'), arc = $('#arcBase'), done = $('#arcDone'), flyer = $('#flyer'), night = $('#night');
+  var len = arc.getTotalLength(); done.style.strokeDasharray = len; done.style.strokeDashoffset = len;
+  var hDist=$('#hDist'), hAlt=$('#hAlt'), hSpd=$('#hSpd'), hStat=$('#hStat');
+  var ticking = false, lastStat = '';
+
+  function updateJourney(){
+    var r = journey.getBoundingClientRect(), total = journey.offsetHeight - innerHeight;
+    var p = Math.min(1, Math.max(0, -r.top / total));
+    var pt = arc.getPointAtLength(p * len), p2 = arc.getPointAtLength(Math.min(len, p * len + 2)), p1 = arc.getPointAtLength(Math.max(0, p * len - 2));
+    var ang = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+    flyer.setAttribute('transform', 'translate('+pt.x+','+pt.y+') rotate('+ang+')');
+    done.style.strokeDashoffset = len * (1 - p);
+    night.style.opacity = Math.sin(p * Math.PI) * .75;
+    var alt = p < .18 ? p/.18 : (p > .85 ? (1-p)/.15 : 1);
+    hDist.textContent = Math.round(p * 3600).toLocaleString() + ' km';
+    hAlt.textContent = Math.round(alt * 38000).toLocaleString() + ' ft';
+    hSpd.textContent = Math.round(Math.min(1, alt * 1.3) * 890) + ' km/h';
+    var st = p <= 0.01 ? 'Boarding' : p < .18 ? 'Climbing' : p < .85 ? 'Cruising' : p < .99 ? 'Descending' : 'Landed';
+    hStat.textContent = st;
+    if(st !== lastStat){ lastStat = st; if(!/to|→/.test(document.body.dataset.custom||'')) setRoute('DXB &rarr; MLE &middot; ' + st); }
+  }
+
+  function frame(){
+    var y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (y / h * 100) + '%';
+    nav.classList.toggle('solid', y > 60);
+    if(!reduce){
+      if(y < hero.offsetHeight){
+        layers.forEach(function(l){
+          var s = parseFloat(l.dataset.speed); if(isNaN(s)) return;
+          var extra = (l.id === 'planeWrap') ? 'translateX(' + (y * 0.35) + 'px) rotate(' + (-y * 0.008) + 'deg) ' : '';
+          l.style.transform = extra + 'translate3d(0,' + (y * s) + 'px,0)';
+        });
+        copy.style.transform = 'translate3d(0,' + (y * -0.22) + 'px,0)';
+        copy.style.opacity = Math.max(0, 1 - y / (innerHeight * 0.75));
+      }
+      bgs.forEach(function(b){
+        var r = b.parentElement.getBoundingClientRect(); if(r.bottom < -200 || r.top > innerHeight + 200) return;
+        var p = parseFloat(b.dataset.p) || .1;
+        b.style.transform = 'translate3d(0,' + ((r.top + r.height / 2 - innerHeight / 2) * -p) + 'px,0)';
+      });
+    }
+    updateJourney();
+    ticking = false;
+  }
+  addEventListener('scroll', function(){ if(!ticking){ requestAnimationFrame(frame); ticking = true; } }, {passive:true});
+  addEventListener('resize', frame); frame();
+
+  /* ---------- reveals, counters, nav state ---------- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return; e.target.classList.add('in');
+      var n = e.target.querySelector('[data-n]'); if(n && !n.done){ n.done = 1; count(n); }
+      io.unobserve(e.target);
+    });
+  }, {threshold:.18});
+  $$('.rv,.feat').forEach(function(el,i){ el.style.transitionDelay = (i % 3) * 90 + 'ms'; io.observe(el); });
+  function count(el){
+    var t = +el.dataset.n, s = performance.now(), d = 1600;
+    (function tick(now){ var p = Math.min(1,(now-s)/d); el.textContent = Math.round(t*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); else el.textContent = t + (t>100?'+':''); })(s);
+  }
+  var links = $$('#menu a');
+  links.forEach(function(a){
+    var s = $(a.getAttribute('href')); if(!s) return;
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) links.forEach(function(x){ x.classList.toggle('on', x === a); }); }); }, {rootMargin:'-45% 0px -50% 0px'}).observe(s);
+  });
+  var menu = $('#menu'); $('#burger').onclick = function(){ menu.classList.toggle('open'); };
+  links.forEach(function(a){ a.addEventListener('click', function(){ menu.classList.remove('open'); }); });
+
+  /* ---------- cards + booking ---------- */
+  $$('.card').forEach(function(c){ c.addEventListener('click', function(){ $('#to').value = c.dataset.city; location.hash = '#book'; toast('Destination set to ' + c.dataset.city); }); });
+  var date = $('#date'), today = new Date().toISOString().slice(0,10); date.min = today;
+  var base = {'Malé (MLE)':620,'Tokyo (HND)':780,'Mauritius (MRU)':710,'Sydney (SYD)':1190,'New York (JFK)':980};
+  var mult = {Economy:1,Premium:1.7,Business:3.4,First:5.6}, res = $('#result');
+  $('#form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = $('#from').value, t = $('#to').value, d = date.value, c = $('#cls').value;
+    if(!t){ res.innerHTML = '<span class="err">Please choose a destination.</span>'; return; }
+    if(!d || d < today){ res.innerHTML = '<span class="err">Please pick a departure date from today onward.</span>'; return; }
+    if(f === t){ res.innerHTML = '<span class="err">Origin and destination are the same.</span>'; return; }
+    var price = Math.round(base[t]*mult[c]/10)*10;
+    var pretty = new Date(d+'T00:00').toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'long',year:'numeric'});
+    res.innerHTML = '<div class="ticket"><div><small>'+c+' &middot; '+pretty+'</small><h4>'+f+' &rarr; '+t+'</h4></div><div><small>Demo fare</small><h4>$'+price.toLocaleString()+'</h4></div></div>';
+    document.body.dataset.custom = 'to';
+    setRoute(f.match(/\((\w+)\)/)[1] + ' &rarr; ' + t.match(/\((\w+)\)/)[1] + ' &middot; Your crew is ready');
+    toast('Your crew for ' + t + ' is ready. Open the sidebar to say hello.');
+  });
+})();
+</script>
+</body>
+</html>
